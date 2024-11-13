@@ -47,10 +47,9 @@ Python的基本資料型態如下:
   9.0
   ```
 
-- 布林(boolean)型態: True/False，但也被視為**數值型態** [True=1,False=0]
-- 文字序列(text sequence type)型態: 就是**字串(string)**型態
+- 布林(boolean)型態: True/False，但也被視為 **數值型態** [True=1,False=0]
+- 文字序列(text sequence type)型態: 就是 **字串(string)** 型態
 - 位元組(bytes)型態: 這是二進位的資料型態，每個單位長度是8bit
-- bytearray型態: 
 - 序列(sequence type)型態: 此類型又稱作容器(container)，例如: list、tuple
 - 對映(mapping type)型態: 此類型又稱作容器(container)，例如: dist
 - 集合(set type)型態: 此類型又稱作容器(container)，例如: set、frozenset
@@ -256,7 +255,7 @@ line one \nline two
 
 `str()`可用來將資料轉為字串，用法很多種，列舉如下:
 
-```bash
+```python
 >>> x = str() # 設定空字串
 >>> x
 ''
@@ -278,7 +277,7 @@ Python沒有所謂的字元(character)，一個英文字元在電腦中被儲存
 Unicode使用**16位元**定義文字，等於有2的16次方(65536)個字元，定義方式是以 `\u` 開頭後面有4個16進位的數字，也就是從`\u0000` ~ `\uFFFF`，漢字的Unicode編碼範圍是 `4E00-9FBB`。  
 Unicode編碼中，前128個碼值是保留給ASCII使用，在應用中很常使用`ord()`函數來
 
-```bash
+```python
 >>> chr(97)         # 將數字轉為ASCII的'a'字元
 'a'
 >>> ord('a')        # 將Unicode的'a'字元轉回數值
@@ -312,3 +311,52 @@ utf-8是針對Unicode字符集的**可變長度編碼方式**，utf-8使用1~4�
 '國'字的編碼如下:
 => (Unicode) \u570b => 5:0101 | 7: 0111 | 0: 0000 | b: 1011  
 => (utf-8) 0xE59C8B => E:1110 | 5:0101 | 9:1001 | C:1100 | 8:1000 | B:1011  
+
+## bytes 型態
+
+當與外部資料交換時，若使用中文勢必要將文字轉換為bytes資料才能交換。
+Bytes資料格式是在字串前面加上 `b`，若是英文字串則單純會顯示原始的字元。  
+
+範例如下:
+
+```text
+b'\xe5\x9c\x8b' # '國'字符的bytes資料
+b'abc'          # 'abc'字串的bytes資料
+```
+
+## 字串 <==轉換==> bytes
+
+將字串(string)轉成bytes資料稱為 **編碼(encode)** ，可使用`encode()`函數，並傳入參數指定編碼的方式。
+將bytes資料轉成字串(string)稱為 **解碼(decode)** ，可使用`decode()`函數，並傳入參數指定編碼的方式
+可用`len()`函數並傳入參數可返回傳入字串或bytes的資料長度
+可傳入參數如下:
+
+- `ascii`: 標準7bit的ASCII編碼
+- `utf-8`: Unicode可變長度編碼，也是網路常見編碼
+- `cp-1252`: 一般英文Windows作業系統的編碼
+- `cp950`: 繁體中文Windows作業系統的編碼
+- `unicode-escape`: Unicode的常數格式，\uxxx或\Uxxxxxxxx
+
+```python
+>>> str = 'abc'
+>>> len(str)
+3
+>>> str.encode('unicode-escape') #將字串變數轉換成bytes，指定用Unicode編碼
+b'abc'
+>>> str.encode('cp950')          #將字串變數轉換成bytes，指定用繁體中文windows作業系統的編碼
+b'abc'
+>>> str.encode('utf-8')          #將字串變數轉換成bytes，指定用UTF-8編碼
+b'abc'
+>>> name = '國abc字'
+>>> name_bytes = name.encode('utf-8') # 將字串用utf-8編碼轉換成bytes資料
+>>> len(name)                         # 字串為轉換前的資料長度為5
+5
+>>> len(name_bytes)                   # 轉換成bytes後的bytes資料長度為 9(因為有兩個中文字，一個中文長度是3)
+9
+>>> type(name_bytes)                  # 轉換後的資料格式為bytes
+<class 'bytes'>
+>>> print(name_bytes)                 # 檢視資料樣子
+b'\xe5\x9c\x8babc\xe5\xad\x97'
+>>> name_bytes.decode('utf-8')        # 將bytes資料用utf-8格式解碼轉換成字串
+'國abc字'
+```
