@@ -184,3 +184,25 @@ test 123 看到了嗎               # <=== 這個是使用者輸入的內容
 >>> val
 'test 123 看到了嗎'
 ```
+
+## 處理數學運算的 `eval()` 函數
+
+Python內建一個計算數學表達式的函數 `eval()`，傳入數學表達式字串後返回計算的結果。
+
+```python
+>>> expression = '5 * 9 + 10'
+>>> result = eval(expression)
+>>> result
+55
+```
+
+## 查詢模組提供了哪些 `方法` 和 `屬性`
+
+Python 提供了一個內建函數 `dir()` 來查詢模組提供了哪些 `方法` 或 `屬性`。
+
+```python
+>>> dir(id)   # 查詢 'id()'函數的所有方法與屬性
+['__call__', '__class__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__name__', '__ne__', '__new__', '__qualname__', '__reduce__', '__reduce_ex__', '__repr__', '__self__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__text_signature__']
+>>> dir(math) # 查詢 'math'模組的所有方法與屬性
+['__doc__', '__loader__', '__name__', '__package__', '__spec__', 'acos', 'acosh', 'asin', 'asinh', 'atan', 'atan2', 'atanh', 'cbrt', 'ceil', 'comb', 'copysign', 'cos', 'cosh', 'degrees', 'dist', 'e', 'erf', 'erfc', 'exp', 'exp2', 'expm1', 'fabs', 'factorial', 'floor', 'fma', 'fmod', 'frexp', 'fsum', 'gamma', 'gcd', 'hypot', 'inf', 'isclose', 'isfinite', 'isinf', 'isnan', 'isqrt', 'lcm', 'ldexp', 'lgamma', 'log', 'log10', 'log1p', 'log2', 'modf', 'nan', 'nextafter', 'perm', 'pi', 'pow', 'prod', 'radians', 'remainder', 'sin', 'sinh', 'sqrt', 'sumprod', 'tan', 'tanh', 'tau', 'trunc', 'ulp']
+```
