@@ -237,7 +237,6 @@ False
 >>> x = frozenset(['A', 'B', 'C'])
 >>> type(x)
 <class 'frozenset'>
-<class 'frozenset'>
 >>> y = frosenset([1, 2, 3])
 >>> x.union(y)
 frozenset({'A', 1, 2, 3, 'B', 'C'})
